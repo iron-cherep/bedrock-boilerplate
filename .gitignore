@@ -1,0 +1,31 @@
+# Application
+public_html/app/plugins/*
+!public_html/app/plugins/.gitkeep
+public_html/app/mu-plugins/*/
+public_html/app/upgrade
+public_html/app/uploads/*
+!public_html/app/uploads/.gitkeep
+
+# WordPress
+public_html/wp
+# public_html/.htaccess
+
+# Dotenv
+.env
+.env.*
+!.env.example
+
+# Composer
+vendor/*
+!vendor/.gitkeep
+
+# Stuff
+.DS_Store
+.idea
+.vagrant
+*.ai
+*.log
+*.pdf
+*.sublime*
+node_modules/
+Thumbs.db

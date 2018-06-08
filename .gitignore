@@ -8,7 +8,7 @@ public_html/app/uploads/*
 
 # WordPress
 public_html/wp
-# public_html/.htaccess
+public_html/.htaccess
 
 # Dotenv
 .env

@@ -1,18 +1,18 @@
 <?php
 
-/** @var string Directory containing all of the site's files */
+/** @var string Директория, содержащая все файлы сайта */
 $root_dir = dirname(__DIR__);
 
-/** @var string Document Root */
+/** @var string Корневой каталог веб-сервера */
 $webroot_dir = $root_dir . '/public_html';
 
 /**
- * Expose global env() function from oscarotero/env
+ * Глобально опубликовать функцию env() из пакета oscarotero/env
  */
 Env::init();
 
 /**
- * Use Dotenv to set required environment variables and load .env file in root
+ * Установить необходимые переменные среды и загрузить .env файл из корня проекта
  */
 $dotenv = new Dotenv\Dotenv($root_dir);
 if (file_exists($root_dir . '/.env')) {
@@ -21,8 +21,8 @@ if (file_exists($root_dir . '/.env')) {
 }
 
 /**
- * Set up our global environment constant and load its config first
- * Default: production
+ * Установить глобальную константу среды и загрузить связанную с ней конфигурацию
+ * По умолчанию: production
  */
 define('WP_ENV', env('WP_ENV') ?: 'production');
 
@@ -33,20 +33,20 @@ if (file_exists($env_config)) {
 }
 
 /**
- * URLs
+ * URL
  */
 define('WP_HOME', env('WP_HOME'));
 define('WP_SITEURL', env('WP_SITEURL'));
 
 /**
- * Custom Content Directory
+ * Переопределяем директорию для контента (wp_content -> app)
  */
 define('CONTENT_DIR', '/app');
 define('WP_CONTENT_DIR', $webroot_dir . CONTENT_DIR);
 define('WP_CONTENT_URL', WP_HOME . CONTENT_DIR);
 
 /**
- * DB settings
+ * Конфигурация базы данных
  */
 define('DB_NAME', env('DB_NAME'));
 define('DB_USER', env('DB_USER'));
@@ -57,7 +57,7 @@ define('DB_COLLATE', '');
 $table_prefix = env('DB_PREFIX') ?: 'wp_';
 
 /**
- * Authentication Unique Keys and Salts
+ * Уникальные ключи и соли для аутинтификации
  */
 define('AUTH_KEY', env('AUTH_KEY'));
 define('SECURE_AUTH_KEY', env('SECURE_AUTH_KEY'));
@@ -69,14 +69,14 @@ define('LOGGED_IN_SALT', env('LOGGED_IN_SALT'));
 define('NONCE_SALT', env('NONCE_SALT'));
 
 /**
- * Custom Settings
+ * Дополнительные параметры
  */
 define('AUTOMATIC_UPDATER_DISABLED', true);
 define('DISABLE_WP_CRON', env('DISABLE_WP_CRON') ?: false);
 define('DISALLOW_FILE_EDIT', true);
 
 /**
- * Bootstrap WordPress
+ * Загружаем WordPress
  */
 if (!defined('ABSPATH')) {
     define('ABSPATH', $webroot_dir . '/wp/');

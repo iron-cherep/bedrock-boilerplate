@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Bedrock Autoloader
  * Plugin URI: https://github.com/roots/bedrock/
- * Description: An autoloader that enables standard plugins to be required just like must-use plugins. The autoloaded plugins are included during mu-plugin loading. An asterisk (*) next to the name of the plugin designates the plugins that have been autoloaded.
+ * Description: Автозагрузчик, позволяющий использовать стандартные плагины как must-use плагины. Автозагруженные плагины подключаются в процессе загрузки mu-плагина. Звёздочка (*) после имени плагина обозначает, что плагину необходима автозагрузка.
  * Version: 1.0.0
  * Author: Roots
  * Author URI: https://roots.io/
@@ -23,29 +23,29 @@ if (!is_blog_installed()) {
  */
 class Autoloader
 {
-    /** @var array Store Autoloader cache and site option */
+    /** @var array Хранит кэш автозагрузчика и конфигурацию сайта */
     private static $cache;
 
-    /** @var array Autoloaded plugins */
+    /** @var array Автозагружаемые плагины */
     private static $auto_plugins;
 
-    /** @var array Autoloaded mu-plugins */
+    /** @var array Автозагружаемые mu-плагины */
     private static $mu_plugins;
 
-    /** @var int Number of plugins */
+    /** @var int Число плагинов */
     private static $count;
 
-    /** @var array Newly activated plugins */
+    /** @var array Активированные плагины */
     private static $activated;
 
-    /** @var string Relative path to the mu-plugins dir */
+    /** @var string Относительный путь к директории mu-plugins */
     private static $relative_path;
 
-    /** @var static Singleton instance */
+    /** @var static Инстанс синглтона */
     private static $_single;
 
     /**
-     * Create singleton, populate vars, and set WordPress hooks
+     * Создать синглтон, назначить переменные и добавить хуки WordPress
      */
     public function __construct()
     {
@@ -64,7 +64,7 @@ class Autoloader
     }
 
    /**
-    * Run some checks then autoload our plugins.
+    * Запустить проверки и начать автозагрузку наших плагинов.
     */
     public function loadPlugins()
     {
@@ -80,11 +80,12 @@ class Autoloader
     }
 
     /**
-     * Filter show_advanced_plugins to display the autoloaded plugins.
-     * @param $bool bool Whether to show the advanced plugins for the specified plugin type.
-     * @param $type string The plugin type, i.e., `mustuse` or `dropins`
-     * @return bool We return `false` to prevent WordPress from overriding our work
-     * {@internal We add the plugin details ourselves, so we return false to disable the filter.}
+     * Фильтр show_advanced_plugins отображает список автозагруженных плагинов.
+     *
+     * @param $show bool Отображать автозагружаемые плагины указанного типа
+     * @param $type string Тип плагина, например `mustuse` или `dropins`
+     * @return bool Возвращаем `false`, чтобы не дать WordPress переопределять наши данные
+     * {@internal Мы добавили информацию о плагине, так что возвращаем false, чтобы деактивировать фильтр}
      */
     public function showInAdmin($show, $type)
     {
@@ -108,7 +109,7 @@ class Autoloader
     }
 
     /**
-     * This sets the cache or calls for an update
+     * Загружает кэш или вызывает его обновление.
      */
     private function checkCache()
     {
@@ -123,9 +124,9 @@ class Autoloader
     }
 
     /**
-     * Get the plugins and mu-plugins from the mu-plugin path and remove duplicates.
-     * Check cache against current plugins for newly activated plugins.
-     * After that, we can update the cache.
+     * Берёт плагины и mu-плагины из директории mu-плагинов и удаляет повторяющиеся экземпляры.
+     * Сравнивает версию закэшированных плагинов с версией заново активированных.
+     * После этого обновляет кэш.
      */
     private function updateCache()
     {
@@ -142,9 +143,9 @@ class Autoloader
     }
 
     /**
-     * This accounts for the plugin hooks that would run if the plugins were
-     * loaded as usual. Plugins are removed by deletion, so there's no way
-     * to deactivate or uninstall.
+     * Вызывает хуки, которые были бы вызваны при нормальной загрузке плагинов.
+     * При удалении автозагруженных плагинов их файлы так же удаляются, так что
+     * их не нужно деактивировать или деинсталировать.
      */
     private function pluginHooks()
     {
@@ -158,7 +159,7 @@ class Autoloader
     }
 
     /**
-     * Check that the plugin file exists, if it doesn't update the cache.
+     * Проверяет, что файлы плагина существуют, и обновляет кэш, если это не так.
      */
     private function validatePlugins()
     {
@@ -171,12 +172,12 @@ class Autoloader
     }
 
     /**
-     * Count the number of autoloaded plugins.
+     * Подсчитывает число автозагруженных плагинов.
      *
-     * Count our plugins (but only once) by counting the top level folders in the
-     * mu-plugins dir. If it's more or less than last time, update the cache.
+     * Подсчитывает наши плагины (только один раз) пересчётом директорий в mu-plugins.
+     * Если число изменилось - обновляет кэш.
      *
-     * @return int Number of autoloaded plugins.
+     * @return int Число автозагруженных плагинов
      */
     private function countPlugins()
     {

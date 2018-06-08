@@ -2,7 +2,7 @@
 /*
 Plugin Name:  Register Theme Directory
 Plugin URI:   https://roots.io/bedrock/
-Description:  Register default theme directory
+Description:  Регистрирует директорию для тем по умолчанию.
 Version:      1.0.0
 Author:       Roots
 Author URI:   https://roots.io/
